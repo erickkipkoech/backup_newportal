@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
           {/* Wrap other pages with the Layout */}
           <Route
-            path="/myproducts/*"
+            path="/"
             element={
               <Layout>
                 <MyProducts />

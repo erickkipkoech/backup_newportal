@@ -16,7 +16,7 @@ const Sidebar = () => {
         </Link>
       </li>
       <li className="nav-item  py-2 m-2 text-xl" id="product">
-        <Link to="/myproducts">
+        <Link to="/">
           <i className="fa fa-plus-square" aria-hidden="true"></i>
           <span>My Products</span>
         </Link>
