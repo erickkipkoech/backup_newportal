@@ -2,9 +2,9 @@
 
 // ConstructPage.tsx
 
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Project, Component, Tool } from "../interfaces";
+import { Project, Component } from "../interfaces";
 
 const ConstructPage = () => {
   const { subcategory } = useParams<{ subcategory: string }>();

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"; // Import ReactNode type
+import  { ReactNode } from "react"; // Import ReactNode type
 import Header from "./constants/header";
 import Sidebar from "./constants/sidebar";
 import Footer from "./constants/footer";
