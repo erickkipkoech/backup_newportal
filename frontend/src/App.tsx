@@ -14,9 +14,9 @@ import PreviewPage from "./dashboard/pages/previewProject";
 import { Project, Component, Tool } from "./dashboard/interfaces";
 
 const App: React.FC = () => {
-  const [project, setProject] = useState<Project | null>(null);
-  const [components, setComponents] = useState<Component[]>([]);
-  const [tools, setTools] = useState<Tool[]>([]);
+  const [project, /*setProject}*/] = useState<Project | null>(null);
+  const [components,/* setComponents*/] = useState<Component[]>([]);
+  const [tools, /*setTools*/] = useState<Tool[]>([]);
 
   return (
     <div className="h-full">

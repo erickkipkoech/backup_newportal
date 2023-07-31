@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Component, Tool } from "../interfaces";
+import {  Tool } from "../interfaces";
 
 const ToolFormPage = () => {
   const history = useNavigate();

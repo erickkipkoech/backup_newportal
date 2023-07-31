@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Project, Component } from "../interfaces";
+import { Component } from "../interfaces";
 
 const ComponentFormPage = () => {
   const history = useNavigate();
@@ -40,11 +40,11 @@ const ComponentFormPage = () => {
     ]);
   };
 
-  const removeComponent = (index: number) => {
-    setComponents((prevComponents) =>
-      prevComponents.filter((_, i) => i !== index)
-    );
-  };
+  // const removeComponent = (index: number) => {
+  //   setComponents((prevComponents) =>
+  //     prevComponents.filter((_, i) => i !== index)
+  //   );
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
