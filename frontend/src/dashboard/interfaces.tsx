@@ -12,17 +12,26 @@ export interface Category {
 export interface Tool {
   id: number;
   name: string;
-  componentId?: number;
+  subComponentId?: number;
 
   description: string;
 }
 
+export interface SubComponent{
+  id:number;
+  name:string;
+  componentId?:number;
+  description:string;
+  tools:Tool[];
+
+}
+
 export interface Component {
   id: number;
-  componentId?: number;
+  projectId?: number;
   name: string;
   description: string;
-  tools: Tool[];
+  subComponent: SubComponent[];
 }
 
 export interface Project {

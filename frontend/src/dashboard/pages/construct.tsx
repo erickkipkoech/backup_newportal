@@ -4,12 +4,15 @@
 
 import  { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Project, Component } from "../interfaces";
+import { Project, Component, SubComponent, Tool } from "../interfaces";
 
 const ConstructPage = () => {
   const { subcategory } = useParams<{ subcategory: string }>();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedComponent, setSelectedComponent] = useState<Component | null>(null);
+  const [selectedSubComponent,setSelectedSubComponent]=useState<SubComponent|null>(null);
+    const [subComponentShown, setSubComponentShown] = useState<boolean>(false);
+
 
   // Sample data for Projects, Components, and Tools
  const projects: Project[] = [
@@ -22,16 +25,40 @@ const ConstructPage = () => {
          id: 1,
          name: "Component 1",
          description: "Description of Component 1",
-         tools: [
+         subComponent: [
            {
              id: 1,
-             name: "Tool 1",
-             description: "Description of Tool 1",
+             name: "Sub Component1",
+             description: "Description of Sub Component 1",
+             tools: [
+               {
+                 id: 1,
+                 name: "Tool 1",
+                 description: "Description of Tool 1",
+               },
+               {
+                 id: 2,
+                 name: "Tool 2",
+                 description: "Description of Tool 2",
+               },
+             ],
            },
            {
              id: 2,
-             name: "Tool 2",
-             description: "Description of Tool 2",
+             name: "Sub Component2",
+             description: "Description of Sub Component 2",
+             tools: [
+               {
+                 id: 3,
+                 name: "Tool 3",
+                 description: "Description of Tool 3",
+               },
+               {
+                 id: 4,
+                 name: "Tool 4",
+                 description: "Description of Tool 4",
+               },
+             ],
            },
          ],
        },
@@ -39,16 +66,40 @@ const ConstructPage = () => {
          id: 2,
          name: "Component 2",
          description: "Description of Component 2",
-         tools: [
+         subComponent: [
            {
              id: 3,
-             name: "Tool 3",
-             description: "Description of Tool 3",
+             name: "Sub Component3",
+             description: "Description of Sub Component 3",
+             tools: [
+               {
+                 id: 5,
+                 name: "Tool 5",
+                 description: "Description of Tool 5",
+               },
+               {
+                 id: 6,
+                 name: "Tool 6",
+                 description: "Description of Tool 6",
+               },
+             ],
            },
            {
              id: 4,
-             name: "Tool 4",
-             description: "Description of Tool 4",
+             name: "Sub Component4",
+             description: "Description of Sub Component 4",
+             tools: [
+               {
+                 id: 7,
+                 name: "Tool 7",
+                 description: "Description of Tool 7",
+               },
+               {
+                 id: 8,
+                 name: "Tool 8",
+                 description: "Description of Tool 8",
+               },
+             ],
            },
          ],
        },
@@ -63,16 +114,23 @@ const ConstructPage = () => {
          id: 3,
          name: "Component 3",
          description: "Description of Component 3",
-         tools: [
+         subComponent: [
            {
              id: 5,
-             name: "Tool 5",
-             description: "Description of Tool 5",
-           },
-           {
-             id: 6,
-             name: "Tool 6",
-             description: "Description of Tool 6",
+             name: " Sub Component 5",
+             description: "Description of Sub Component 5",
+             tools: [
+               {
+                 id: 9,
+                 name: "Tool 9",
+                 description: "Description of Tool 9",
+               },
+               {
+                 id: 10,
+                 name: "Tool 10",
+                 description: "Description of Tool 10",
+               },
+             ],
            },
          ],
        },
@@ -80,16 +138,23 @@ const ConstructPage = () => {
          id: 4,
          name: "Component 4",
          description: "Description of Component 4",
-         tools: [
+         subComponent: [
            {
-             id: 7,
-             name: "Tool 7",
-             description: "Description of Tool 7",
-           },
-           {
-             id: 8,
-             name: "Tool 8",
-             description: "Description of Tool 8",
+            id:6,
+            name:"Sub Component 6",
+            description:"Description of Sub Component 6",
+             tools: [
+               {
+                 id: 7,
+                 name: "Tool 7",
+                 description: "Description of Tool 7",
+               },
+               {
+                 id: 8,
+                 name: "Tool 8",
+                 description: "Description of Tool 8",
+               },
+             ],
            },
          ],
        },
@@ -100,18 +165,17 @@ const ConstructPage = () => {
 
 
   // Initialize selectedProject and selectedComponent with dummy data for "Select a Project" and "Select a Component" states
-  const initialSelectedProject: Project = {
+  const initialSelectedTool: Tool = {
     id: -1,
-    name: "Select a Component",
+    name: "Select a Sub Component",
     description: "",
-    components: [],
   };
 
   const initialSelectedComponent: Component = {
     id: -1,
     name: "Select a Project",
     description: "",
-    tools: [],
+    subComponent: [],
   };
 
   const handleProjectClick = (project: Project) => {
@@ -119,9 +183,25 @@ const ConstructPage = () => {
     setSelectedComponent(initialSelectedComponent); // Clear selected Component when a new Project is clicked
   };
 
-  const handleComponentClick = (component: Component) => {
-    setSelectedComponent(component);
-  };
+const handleComponentClick = (component: Component) => {
+  if (selectedComponent === component) {
+    // If the same component is clicked again, don't change the selected state
+    return;
+  }
+
+  // Show the subcomponents when a different component is clicked
+  setSubComponentShown(true);
+  setSelectedComponent(component);
+};
+
+ const handleSubComponentClick = (subComponent: SubComponent) => {
+   if (selectedSubComponent === subComponent) {
+     // If the same subcomponent is clicked again, hide it
+     setSelectedSubComponent(null);
+   } else {
+     setSelectedSubComponent(subComponent); // Set the selected subcomponent when it is clicked
+   }
+ };
 
    return (
      <div className=" mx-1 p-1 border border-slate-400 rounded my-1">
@@ -152,7 +232,8 @@ const ConstructPage = () => {
 
            {/* Components column */}
            <div className="md:w-full">
-             <fieldset className="border p-4 rounded-lg h-96">
+             {/* Add 'overflow-y-auto' to enable vertical scrolling when the subcomponents overflow */}
+             <fieldset className="border p-4 rounded-lg h-96  overflow-y-auto">
                <legend className="text-xl font-semibold text-center mb-4">
                  Components
                </legend>
@@ -160,11 +241,47 @@ const ConstructPage = () => {
                  selectedProject.components.map((component) => (
                    <div
                      key={component.id}
-                     className="cursor-pointer mb-4"
+                     className={`cursor-pointer mb-4 ${
+                       selectedComponent === component ? "bg-gray-100" : ""
+                     }`}
                      onClick={() => handleComponentClick(component)}
                    >
-                     <h3 className="font-semibold">{component.name}</h3>
+                     <h3
+                       className={`font-semibold ${
+                         selectedComponent === component
+                           ? "text-lg"
+                           : "text-base"
+                       }`}
+                     >
+                       {/* Use a different font size for selected component */}
+                       {component.name}
+                     </h3>
                      <p>{component.description}</p>
+                     {selectedComponent &&
+                     selectedComponent.id === component.id ? (
+                       <div className="mt-2">
+                         {component.subComponent.map((subcomponent) => (
+                           <div
+                             key={subcomponent.id}
+                             className={`py-1 space-y-1.5 ${
+                               selectedSubComponent === subcomponent
+                                 ? "bg-gray-200"
+                                 : ""
+                             }`}
+                             onClick={() =>
+                               handleSubComponentClick(subcomponent)
+                             }
+                           >
+                             {/* Display subcomponent information here */}
+                             <h4 className="text-sm font-medium">
+                               {/* Use a different font size and style for selected subcomponent */}
+                               {subcomponent.name}
+                             </h4>
+                             <p>{subcomponent.description}</p>
+                           </div>
+                         ))}
+                       </div>
+                     ) : null}
                    </div>
                  ))
                ) : (
@@ -186,8 +303,8 @@ const ConstructPage = () => {
                <legend className="text-xl font-semibold text-center mb-4">
                  Tools
                </legend>
-               {selectedComponent ? (
-                 selectedComponent.tools.map((tool) => (
+               {selectedSubComponent ? (
+                 selectedSubComponent.tools.map((tool) => (
                    <div key={tool.id} className="mb-4">
                      <h3 className="font-semibold">{tool.name}</h3>
                      <p>{tool.description}</p>
@@ -197,9 +314,9 @@ const ConstructPage = () => {
                  <>
                    <div className="cursor-pointer mb-4">
                      <h3 className="font-semibold">
-                       {initialSelectedProject.name}
+                       {initialSelectedTool.name}
                      </h3>
-                     <p>{initialSelectedProject.description}</p>
+                     <p>{initialSelectedTool.description}</p>
                    </div>
                  </>
                )}
