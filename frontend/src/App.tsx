@@ -12,6 +12,7 @@ import ComponentFormPage from "./dashboard/pages/addComponent";
 import ToolFormPage from "./dashboard/pages/addTools";
 import PreviewPage from "./dashboard/pages/previewProject";
 import { Project, Component, Tool } from "./dashboard/interfaces";
+import SubComponentPage from "./dashboard/pages/addSubComponent";
 
 const App: React.FC = () => {
   const [project, /*setProject}*/] = useState<Project | null>(null);
@@ -55,6 +56,14 @@ const App: React.FC = () => {
             element={
               <Layout>
                 <ComponentFormPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/subcomponent-form"
+            element={
+              <Layout>
+                <SubComponentPage />
               </Layout>
             }
           />

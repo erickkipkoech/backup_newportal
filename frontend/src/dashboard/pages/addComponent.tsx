@@ -9,7 +9,7 @@ const ComponentFormPage = () => {
       id: 1,
       name: "",
       description: "",
-      tools: [],
+      subComponent: [],
     },
   ]);
 
@@ -35,7 +35,7 @@ const ComponentFormPage = () => {
         id: prevComponents.length + 1,
         name: "",
         description: "",
-        tools: [],
+        subComponent: [],
       },
     ]);
   };
@@ -51,7 +51,7 @@ const ComponentFormPage = () => {
     // Save the components data (e.g., send it to the server)
     console.log("Components Data:", components);
     // Redirect to the ToolFormPage
-    history("/tool-form");
+    history("/subcomponent-form");
   };
 
   return (
