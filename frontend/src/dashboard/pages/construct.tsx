@@ -11,7 +11,7 @@ const ConstructPage = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedComponent, setSelectedComponent] = useState<Component | null>(null);
   const [selectedSubComponent,setSelectedSubComponent]=useState<SubComponent|null>(null);
-    const [subComponentShown, setSubComponentShown] = useState<boolean>(false);
+    const [, setSubComponentShown] = useState<boolean>(false);
 
 
   // Sample data for Projects, Components, and Tools
