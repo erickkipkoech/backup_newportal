@@ -277,7 +277,7 @@ const handleComponentClick = (component: Component) => {
                                {/* Use a different font size and style for selected subcomponent */}
                                {subcomponent.name}
                              </h4>
-                             <p>{subcomponent.description}</p>
+                             <p className="text-sm">{subcomponent.description}</p>
                            </div>
                          ))}
                        </div>
